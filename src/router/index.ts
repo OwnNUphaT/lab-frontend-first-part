@@ -11,6 +11,9 @@ import nProgress from 'nprogress'
 import EventService from '@/services/EventService'
 import AddEventView from '@/views/EventFromView.vue'
 import { useEventStore } from '@/stores/event'
+import OrganizerFromView from '@/views/OrganizerFromView.vue'
+import OrganizerView from '@/views/OrganizerView.vue'
+import OrganizerDetailView from '@/views/event/OrganizerDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +83,22 @@ const router = createRouter({
       path: '/AddEventView',
       name: 'add-event',
       component: AddEventView
+    },
+    {
+      path: '/organizer',
+      name: 'organizer',
+      component: OrganizerView,
+      props: (route) => ({ page: parseInt(route.query.page?.toString() || '1') })
+    },
+    {
+      path: '/add-organier',
+      name: 'add-organier',
+      component: OrganizerFromView
+    },
+    {
+      path: '/OrganizerDetail',
+      name: 'organizer-detail-view',
+      component: OrganizerDetailView
     },
     {
       path: '/404/:resource',

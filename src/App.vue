@@ -31,6 +31,18 @@ const { message } = storeToRefs(store)
           exportparts="text-green-500"
           :to="{ name: 'add-event' }"
           >New Event</RouterLink>
+          |
+          <router-link 
+          class="font-bold text-gray-700"
+          :to="{ name: 'organizer' }" 
+          exact-active-class="text-green-500">
+          Organizer</router-link> 
+          |
+          <router-link 
+          class="font-bold text-gray-700" 
+          :to="{ name: 'add-organier' }" 
+          exact-active-class="text-green-500">
+          New Organizer</router-link>
         </nav>
       </div>
     </header>
