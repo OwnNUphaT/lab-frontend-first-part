@@ -7,7 +7,7 @@ import { useMessageStore } from '@/stores/message';
 
 const organizer = ref<Organizer>({
   id: 0,
-  organizationName: '',
+  name: '',
   address: '',
 });
 
@@ -37,7 +37,7 @@ function saveOrganizer() {
         <label for="organizationName">Organization Name</label>
         <input
           id="organizationName"
-          v-model="organizer.organizationName"
+          v-model="organizer.name"
           type="text"
           placeholder="Enter organization name"
           class="field"

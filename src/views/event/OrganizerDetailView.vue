@@ -11,7 +11,7 @@ const { organizer } = toRefs(props)
 <template>
   <div>
     <h2>Organizer Details</h2>
-    <p>Organization Name: {{ organizer.organizationName }}</p>
+    <p>Organization Name: {{ organizer.name }}</p>
     <p>Address: {{ organizer.address }}</p>
   </div>
 </template>

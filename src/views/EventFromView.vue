@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { Event } from '@/types';
-import { ref } from 'vue';
+import type { Event, Organizer } from '@/types';
+import { onMounted, ref } from 'vue';
 import EventService from '@/services/EventService';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
+import BaseInput from '@/components/BaseInput.vue';
+import { OrganizeImportsMode } from 'typescript';
+import OrganizerService from '@/services/OrganizerService';
+import BaseSelect from '@/components/BaseSelect.vue';
 
 const event = ref<Event>({
   id: 0,
@@ -14,7 +18,11 @@ const event = ref<Event>({
   date: '',
   time: '',
   petsAllowed: false,
-  organizer: '',
+  organizer: {
+    id: 0,
+    name: '',
+    address: ''
+  },
 });
 const router = useRouter();
 const store = useMessageStore();
@@ -23,7 +31,7 @@ function saveEvent() {
   EventService.saveEvent(event.value)
     .then((response) => {
       router.push({ name: 'event-detail-view', params: { id: response.data.id } });
-      store.updateMessage('You are successfully add a new event for ' + 
+      store.updateMessage('You are successfully adding a new event for ' + 
       response.data.title);
       setTimeout(() => {
         store.resetMessage();
@@ -33,6 +41,16 @@ function saveEvent() {
       router.push({ name: 'network-error-view' });
     });
 }
+const organizers = ref<Organizer[]>([])
+onMounted(() => {
+  OrganizerService.getOrganizers()
+  .then((response) => {
+    organizers.value = response.data
+  })
+  .catch(() => {
+    router.push ({ name: 'network-error-view' })
+  })
+})
 </script>
 
 <template>
@@ -40,45 +58,47 @@ function saveEvent() {
     <h1>Create an Event</h1>
     <form @submit.prevent="saveEvent" class="form">
       <h3 class="section-heading">Event Details</h3>
-      
+
       <div class="form-group">
         <label for="category">Category</label>
-        <input v-model="event.category" type="text" id="category" placeholder="Category" class="input-field"/>
+        <BaseInput v-model="event.category" type="text" id="category" placeholder="Category" />
       </div>
 
       <div class="form-group">
         <label for="title">Title</label>
-        <input v-model="event.title" type="text" id="title" placeholder="Title" class="input-field"/>
+        <BaseInput v-model="event.title" type="text" id="title" placeholder="Title" />
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input v-model="event.description" type="text" id="description" placeholder="Description" class="input-field"/>
+        <BaseInput v-model="event.description" type="text" id="description" placeholder="Description" />
       </div>
 
       <div class="form-group">
         <label for="location">Location</label>
-        <input v-model="event.location" type="text" id="location" placeholder="Location" class="input-field"/>
+        <BaseInput v-model="event.location" type="text" id="location" placeholder="Location" />
       </div>
 
       <div class="form-group">
         <label for="date">Date</label>
-        <input v-model="event.date" type="date" id="date" placeholder="Date" class="input-field"/>
+        <BaseInput v-model="event.date" type="date" id="date" placeholder="Date" />
       </div>
 
       <div class="form-group">
         <label for="time">Time</label>
-        <input v-model="event.time" type="time" id="time" placeholder="Time" class="input-field"/>
+        <BaseInput v-model="event.time" type="time" id="time" placeholder="Time" />
       </div>
 
       <div class="form-group">
         <label for="petsAllowed">Pets Allowed</label>
-        <input v-model="event.petsAllowed" type="checkbox" id="petsAllowed" class="input-field-checkbox"/>
+        <BaseInput v-model="event.petsAllowed" type="checkbox" id="petsAllowed" />
       </div>
 
       <div class="form-group">
         <label for="organizer">Organizer</label>
-        <input v-model="event.organizer" type="text" id="organizer" placeholder="Organizer" class="input-field"/>
+        <BaseInput v-model="event.organizer.name" type="text" id="organizer" placeholder="Organizer" />
+        <h3>Who is your organizer?</h3>
+        <BaseSelect v-model="event.organizer.id" :options="organizers" label="Organizer" />
       </div>
 
       <button class="submit-button" type="submit">Submit</button>
@@ -124,25 +144,6 @@ label {
   color: #777;
   margin-bottom: 5px;
   display: block;
-}
-
-.input-field, .input-field-checkbox {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  transition: border-color 0.3s ease;
-}
-
-.input-field-checkbox {
-  width: auto;
-}
-
-.input-field:focus {
-  border-color: #007BFF;
-  outline: none;
 }
 
 .submit-button {
