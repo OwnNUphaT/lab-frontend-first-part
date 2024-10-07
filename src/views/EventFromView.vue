@@ -8,6 +8,7 @@ import BaseInput from '@/components/BaseInput.vue';
 import { OrganizeImportsMode } from 'typescript';
 import OrganizerService from '@/services/OrganizerService';
 import BaseSelect from '@/components/BaseSelect.vue';
+import ImageUpload from '@/components/ImageUpload.vue';
 
 const event = ref<Event>({
   id: 0,
@@ -23,6 +24,7 @@ const event = ref<Event>({
     name: '',
     address: ''
   },
+  images: [],
 });
 const router = useRouter();
 const store = useMessageStore();
@@ -99,6 +101,11 @@ onMounted(() => {
         <BaseInput v-model="event.organizer.name" type="text" id="organizer" placeholder="Organizer" />
         <h3>Who is your organizer?</h3>
         <BaseSelect v-model="event.organizer.id" :options="organizers" label="Organizer" />
+      </div>
+
+      <div>
+        <h3>The image of the event</h3>
+        <ImageUpload v-model="event.images" />
       </div>
 
       <button class="submit-button" type="submit">Submit</button>
