@@ -22,7 +22,8 @@ const event = ref<Event>({
   organizer: {
     id: 0,
     name: '',
-    address: ''
+    address: '',
+    images: []
   },
   images: [],
 });

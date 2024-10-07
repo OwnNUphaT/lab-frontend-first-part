@@ -7,6 +7,7 @@ const props = defineProps<{
   id: String
 }>()
 const { event } = toRefs(props)
+console.log(event.value)
 </script>
 <template>
   <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>

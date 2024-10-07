@@ -1,25 +1,26 @@
-<script setup lang="ts">
-import { type Organizer } from '@/types'
-const props = defineProps<{
-  organizer: Organizer
-}>()
-</script>
-
 <template>
- <RouterLink class="text-[#2c3e50] no-underline">
   <div class="event-class">
-    <div 
-    class="cursor-pointer border border-gray-600 p-[20px] w-[250px] mb-[18px] hover:scale-101 hover:shadow-sp"
-    >
-      <span>{{ props.organizer.name }} @ {{ props.organizer.address }}</span>
-    </div>
+    <RouterLink :to="{ name: 'organizer-detail-view', params: { id: organizer.id } }">
+      <div class="cursor-pointer border border-gray-600 p-[20px] w-[250px] mb-[18px] hover:scale-101 hover:shadow-sp">
+        <h2>{{ organizer.name }}</h2>
+        <span>{{ organizer.address }}</span>
+        <img v-for="image in organizer.images" :key="image" :src="image" alt="Organizer Image" class="organizer-image" />
+      </div>
+    </RouterLink>
   </div>
-</RouterLink>
 </template>
 
+<script setup lang="ts">
+import { defineProps } from 'vue';
+import type { Organizer } from '@/types';
+
+const props = defineProps<{ organizer: Organizer }>();
+</script>
+
 <style scoped>
-.event-link {
-  text-decoration: none;
-  color: #2c3e50;
+.organizer-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
 }
 </style>

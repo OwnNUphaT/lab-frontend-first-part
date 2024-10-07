@@ -96,9 +96,10 @@ const router = createRouter({
       component: OrganizerFromView
     },
     {
-      path: '/OrganizerDetail',
+      path: '/organizer/:id',
       name: 'organizer-detail-view',
-      component: OrganizerDetailView
+      component: OrganizerDetailView, 
+      props: true
     },
     {
       path: '/404/:resource',

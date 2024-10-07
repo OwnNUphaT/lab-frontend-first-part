@@ -9,7 +9,6 @@ export interface Event {
   petsAllowed: boolean
   organizer: Organizer
   images: string[]
-  
 }
 
 export interface MessageState {
@@ -24,6 +23,7 @@ export interface Organizer {
   id: number
   name: string
   address: string
+  images: string[]
 }
 
 export interface OrganizerState {
