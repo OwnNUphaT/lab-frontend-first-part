@@ -5,7 +5,6 @@ import EventService from '@/services/EventService';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
 import BaseInput from '@/components/BaseInput.vue';
-import { OrganizeImportsMode } from 'typescript';
 import OrganizerService from '@/services/OrganizerService';
 import BaseSelect from '@/components/BaseSelect.vue';
 import ImageUpload from '@/components/ImageUpload.vue';
