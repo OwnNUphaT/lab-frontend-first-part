@@ -74,18 +74,14 @@ function logout() {
           :to="{ name: 'event-list-view' }"
           >Event</RouterLink>
           |
-          <RouterLink 
-          class="font-bold text-gray-700"
-          exportparts="text-green-500"
-          :to="{ name: 'about' }"
-          >about</RouterLink>
-          |
-          <RouterLink 
+          <span v-if="authStore.isAdmin">
+            <RouterLink 
           class="font-bold text-gray-700"
           exportparts="text-green-500"
           :to="{ name: 'add-event' }"
           >New Event</RouterLink>
           |
+          </span>
           <router-link 
           class="font-bold text-gray-700"
           :to="{ name: 'organizer' }" 

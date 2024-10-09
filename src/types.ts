@@ -23,6 +23,7 @@ export interface Organizer {
   id: number
   name: string
   address: string
+  roles: string[]
   images: string[]
 }
 
