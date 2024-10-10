@@ -22,7 +22,8 @@ const event = ref<Event>({
     id: 0,
     name: '',
     address: '',
-    images: []
+    images: [],
+    roles: []
   },
   images: [],
 });
