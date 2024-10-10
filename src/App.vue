@@ -87,12 +87,14 @@ function logout() {
           :to="{ name: 'organizer' }" 
           exact-active-class="text-green-500">
           Organizer</router-link> 
+          <span v-if="authStore.isAdmin">
           |
           <router-link 
           class="font-bold text-gray-700" 
           :to="{ name: 'add-organier' }" 
           exact-active-class="text-green-500">
           New Organizer</router-link>
+          </span>
         </nav>
       </div>
     </header>
